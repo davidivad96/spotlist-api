@@ -1,18 +1,18 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
-const UserModelDefiner = (sequelize: Sequelize) => {
+const SongModelDefiner = (sequelize: Sequelize) => {
   sequelize.define(
-    'User',
+    'Song',
     {
       id: {
         type: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      password: {
+      artist: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -23,4 +23,4 @@ const UserModelDefiner = (sequelize: Sequelize) => {
   );
 };
 
-export default UserModelDefiner;
+export default SongModelDefiner;
