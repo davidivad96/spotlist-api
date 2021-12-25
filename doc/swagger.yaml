@@ -5,7 +5,7 @@ info:
 schemes:
   - https
 paths:
-  /users/:userid/lists:
+  /users/:userId/lists:
     post:
       summary: Adds a list to a given user
       consumes:
@@ -70,7 +70,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/Error'
-  /users/:userid/lists/:listid:
+  /users/:userId/lists/:listId:
     get:
         summary: Get a specific list of a user
         consumes:
@@ -96,7 +96,7 @@ paths:
             description: Internal Server Error.
             schema:
               $ref: '#/definitions/Error'
-  /users/:userid/lists/:listid/songs:
+  /users/:userId/lists/:listId/songs:
     post:
         summary: Add a song to a list
         consumes:
@@ -146,27 +146,32 @@ definitions:
   Song:
     type: object
     required:
+      - id
       - artist
       - title
     properties:
+      id:
+        type: string
       artist:
         type: string
       title:
         type: string
   SongList:
     properties:
-      listId:
+      id:
         type: string
       songs:
         type: array
         items:
           $ref: '#/definitions/Song'
     required:
-      - listId
+      - id
   Error:
     properties:
       message:
         type: string
+      error:
+        type: object
 
 components:
   securitySchemes:
