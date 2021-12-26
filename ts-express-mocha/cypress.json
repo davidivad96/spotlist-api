@@ -3,10 +3,10 @@
     "apiUrl": "http://localhost:8000"
   },
   "testFiles": [
-    "add.list.spec.ts",
-    "get.lists.spec.ts",
-    "get.list.from.user.spec.ts",
-    "add.songs.spec.ts"
+    "get_lists_from_specific_user.spec.ts",
+    "get_specific_list_from_specific_user.spec.ts",
+    "create_list_for_specific_user.spec.ts",
+    "add_songs_to_specific_list.spec.ts"
   ],
   "reporter": "junit",
   "reporterOptions": {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.0000" tests="4" failures="1">
-  <testsuite name="Root Suite" timestamp="2021-12-26T15:55:23" tests="0" file="cypress/integration/add.songs.spec.ts" time="0.0000" failures="0">
+<testsuites name="Mocha Tests" time="0.5430" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2021-12-26T20:55:03" tests="0" file="cypress/integration/add_songs_to_specific_list.spec.ts" time="0.0000" failures="0">
   </testsuite>
-  <testsuite name="Add Songs to List Spec" timestamp="2021-12-26T15:55:23" tests="4" time="0.0000" failures="1">
-    <testcase name="Add Songs to List Spec &quot;before all&quot; hook for &quot;should add a song to an existing list&quot;" time="0.0000" classname="&quot;before all&quot; hook for &quot;should add a song to an existing list&quot;">
-      <failure message="expected 400 to equal 200
-
-Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Add Songs to List Spec`" type="AssertionError"><![CDATA[AssertionError: expected 400 to equal 200
-
-Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `Add Songs to List Spec`
-    at Context.eval (http://localhost:51637/__cypress/tests?p=cypress/integration/add.songs.spec.ts:151:40)]]></failure>
+  <testsuite name="Add songs to specific list" timestamp="2021-12-26T20:55:03" tests="4" time="0.5430" failures="0">
+    <testcase name="Add songs to specific list should add a song to an existing list" time="0.2650" classname="should add a song to an existing list">
+    </testcase>
+    <testcase name="Add songs to specific list should throw 400 if list id does not exist" time="0.1200" classname="should throw 400 if list id does not exist">
+    </testcase>
+    <testcase name="Add songs to specific list should throw 401 if user does not have permissions to the list" time="0.0800" classname="should throw 401 if user does not have permissions to the list">
+    </testcase>
+    <testcase name="Add songs to specific list should throw 401 if user does not exist" time="0.0780" classname="should throw 401 if user does not exist">
     </testcase>
   </testsuite>
 </testsuites>

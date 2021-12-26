@@ -1,12 +1,15 @@
-const apiUrl = `${Cypress.env('apiUrl')}`;
 import users from '../../../data/users.json';
+import { User, CreateListPayload } from '../interfaces';
 
-describe('Create List Spec', () => {
-  const user: any = users[1];
+const apiUrl = `${Cypress.env('apiUrl')}`;
+
+describe('Create list for specific user', () => {
+  const user: User = users[1];
   const basePath = `/users/${user['id']}/lists`;
 
-  const addListsPayload: any = {
+  const createListPayload: CreateListPayload = {
     list: {
+      name: 'mylist1',
       songs: [
         {
           artist: 'artist1',
@@ -25,15 +28,15 @@ describe('Create List Spec', () => {
       failOnStatusCode: false,
       method: 'POST',
       url: `${apiUrl}${basePath}`,
-      body: addListsPayload,
+      body: createListPayload,
       auth: {
         user: user['name'],
         password: user['password'],
       },
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.have.property('listId');
-      expect(response.body.songs).to.deep.equal(addListsPayload.list.songs);
+      expect(response.status).to.eq(201);
+      expect(response.body.data.list).to.have.property('id');
+      expect(response.body.data.list.songs).to.have.length(createListPayload.list.songs.length);
     });
   });
 
@@ -58,7 +61,7 @@ describe('Create List Spec', () => {
       failOnStatusCode: false,
       method: 'POST',
       url: `${apiUrl}${fakeBasePath}`,
-      body: addListsPayload,
+      body: createListPayload,
       auth: {
         user: user['name'],
         password: user['password'],
@@ -73,7 +76,7 @@ describe('Create List Spec', () => {
       failOnStatusCode: false,
       method: 'POST',
       url: `${apiUrl}${basePath}`,
-      body: addListsPayload,
+      body: createListPayload,
       auth: {
         user: 'aaaa',
         password: 'bbbb',

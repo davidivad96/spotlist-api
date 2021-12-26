@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { createSong } from '../controllers/song.controller';
+import { addSongToList } from '../controllers/song.controller';
 import { tryCatchWrapper } from '../utils/tryCatchWrapper';
 import isAuthorized from '../middlewares/isAuthorized';
 
-const songRouter = Router().post('/users/:userId/lists/:listId/songs', isAuthorized, tryCatchWrapper(createSong));
+const songRouter = Router().post('/users/:userId/lists/:listId/songs', isAuthorized, tryCatchWrapper(addSongToList));
 
 export default songRouter;

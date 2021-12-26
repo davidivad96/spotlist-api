@@ -1,14 +1,17 @@
-const apiUrl = `${Cypress.env('apiUrl')}`;
 import users from '../../../data/users.json';
+import { User, CreateListPayload } from '../interfaces';
 
-describe('Get specific List from User Spec', () => {
-  const user: any = users[1];
+const apiUrl = `${Cypress.env('apiUrl')}`;
+
+describe('Get specific list from specific user', () => {
+  const user: User = users[1];
   const addListBasePath = `/users/${user['id']}/lists`;
   let getListByIdBasePath: string;
   let listId: string;
 
-  const addListsPayload: any = {
+  const createListPayload: CreateListPayload = {
     list: {
+      name: 'list1',
       songs: [
         {
           artist: 'artist1',
@@ -27,16 +30,14 @@ describe('Get specific List from User Spec', () => {
       failOnStatusCode: false,
       method: 'POST',
       url: `${apiUrl}${addListBasePath}`,
-      body: addListsPayload,
+      body: createListPayload,
       auth: {
         user: user['name'],
         password: user['password'],
       },
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      listId = response.body.listId;
-
-      addListsPayload.list.listId = listId;
+      expect(response.status).to.eq(201);
+      listId = response.body.data.list.id;
       getListByIdBasePath = `/users/${user['id']}/lists/${listId}`;
     });
   });
@@ -52,8 +53,8 @@ describe('Get specific List from User Spec', () => {
       },
     }).then((response) => {
       expect(response.status).to.eq(200);
-      expect(response.body).to.not.be.an('array');
-      expect(response.body).to.deep.equal(addListsPayload.list);
+      expect(response.body.data.list).to.not.be.an('array');
+      expect(response.body.data.list.name).to.equal(createListPayload.list.name);
     });
   });
 
@@ -74,7 +75,7 @@ describe('Get specific List from User Spec', () => {
   });
 
   it('should throw 401 if user is not the owner', () => {
-    const user: object = users[2];
+    const user: User = users[2];
 
     cy.request({
       failOnStatusCode: false,

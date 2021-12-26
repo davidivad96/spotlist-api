@@ -9,10 +9,11 @@ const getUsers: RequestHandler = async (req, res): Promise<void> => {
 
 const createUser: RequestHandler = async (req, res): Promise<void> => {
   const { name, password } = req.body;
-  if (await userRepository.findOne({ where: { name } })) {
+  let user = await userRepository.findOne({ where: { name } });
+  if (user) {
     throw new BadRequest('User already exists');
   }
-  const user = await userRepository.create({ name, password });
+  user = await userRepository.create({ name, password });
   res.status(201).json({ data: { user } });
 };
 

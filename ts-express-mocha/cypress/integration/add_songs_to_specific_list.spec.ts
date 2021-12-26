@@ -1,14 +1,17 @@
-const apiUrl = `${Cypress.env('apiUrl')}`;
 import users from '../../../data/users.json';
+import { User, CreateListPayload, AddSongPayload } from '../interfaces';
 
-describe('Add Songs to List Spec', () => {
-  const user: any = users[1];
+const apiUrl = `${Cypress.env('apiUrl')}`;
+
+describe('Add songs to specific list', () => {
+  const user: User = users[1];
   const addListBasePath = `/users/${user['id']}/lists`;
   let listId: string;
   let addSongBasePath: string;
 
-  const addListsPayload: any = {
+  const createListsPayload: CreateListPayload = {
     list: {
+      name: 'mylist1',
       songs: [
         {
           artist: 'artist1',
@@ -22,7 +25,7 @@ describe('Add Songs to List Spec', () => {
     },
   };
 
-  const addSongPayload: any = {
+  const addSongPayload: AddSongPayload = {
     song: {
       artist: 'artistname',
       title: 'songtitle',
@@ -34,14 +37,14 @@ describe('Add Songs to List Spec', () => {
       failOnStatusCode: false,
       method: 'POST',
       url: `${apiUrl}${addListBasePath}`,
-      body: addListsPayload,
+      body: createListsPayload,
       auth: {
         user: user['name'],
         password: user['password'],
       },
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      listId = response.body.listId;
+      expect(response.status).to.eq(201);
+      listId = response.body.data.list.id;
       addSongBasePath = `/users/${user['id']}/lists/${listId}/songs`;
     });
   });
@@ -57,8 +60,10 @@ describe('Add Songs to List Spec', () => {
         password: user['password'],
       },
     }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.deep.equal(addSongPayload.song);
+      expect(response.status).to.eq(201);
+      expect(response.body.data.song).to.have.property('id');
+      expect(response.body.data.song.title).to.equal(addSongPayload.song.title);
+      expect(response.body.data.song.artist).to.equal(addSongPayload.song.artist);
     });
   });
 
@@ -80,7 +85,7 @@ describe('Add Songs to List Spec', () => {
   });
 
   it('should throw 401 if user does not have permissions to the list', () => {
-    const nonOwnerUser: any = users[2];
+    const nonOwnerUser: User = users[2];
 
     cy.request({
       failOnStatusCode: false,
@@ -97,7 +102,7 @@ describe('Add Songs to List Spec', () => {
   });
 
   it('should throw 401 if user does not exist', () => {
-    const user: any = users[0];
+    const user: User = users[0];
 
     cy.request({
       failOnStatusCode: false,
