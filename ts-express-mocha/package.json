@@ -6,9 +6,9 @@
   "scripts": {
     "test": "mocha -r ts-node/register 'src/test/**/*.ts'",
     "integration": "cypress run",
-    "prestart": "tsc",
-    "dev": "nodemon index.ts",
+    "build": "tsc",
     "start": "node dist/index.js",
+    "dev": "nodemon index.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
     "db:seed": "sequelize-cli db:seed:all"

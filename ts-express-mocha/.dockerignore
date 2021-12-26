@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+cypress
+cypress.json
+cypress.xml
+README.md
+.eslintrc
+.prettierrc

@@ -1,0 +1,24 @@
+# base image
+FROM node:14.17.3
+
+# set working directory
+WORKDIR /app
+
+# copy package.json, package-lock.json and tsconfig.json files
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# install dependencies
+RUN npm install
+
+# copy rest of the files
+COPY . .
+
+# seed database
+RUN npm run db:seed
+
+# expose port
+EXPOSE 8000
+
+# run app in development mode
+CMD ["npm", "run", "dev"]
