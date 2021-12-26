@@ -8,13 +8,13 @@ export class Song extends Model {
   @PrimaryKey
   @Default(DataTypes.UUIDV4)
   @Column(DataTypes.UUIDV4)
-  id!: string;
+  id: string;
 
   @Column(DataTypes.STRING)
-  title!: string;
+  title: string;
 
   @Column(DataTypes.STRING)
-  artist!: string;
+  artist: string;
 
   @BelongsToMany(() => List, () => SongList)
   lists: List[];

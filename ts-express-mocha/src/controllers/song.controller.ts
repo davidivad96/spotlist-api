@@ -1,13 +1,12 @@
-import { RequestHandler, Response } from 'express';
-import { Song } from '../db/models/song.model';
+import { RequestHandler } from 'express';
 import { songRepository, songListRepository } from '../repositories';
 
-const createSong: RequestHandler = async (req, res): Promise<Response<Song>> => {
+const createSong: RequestHandler = async (req, res): Promise<void> => {
   const { listId } = req.params;
   const { title, artist } = req.body;
-  const data = await songRepository.create({ title, artist });
-  await songListRepository.create({ songId: data.id, listId });
-  return res.status(201).json({ data });
+  const song = await songRepository.create({ title, artist });
+  await songListRepository.create({ songId: song.id, listId });
+  res.status(201).json({ data: { song } });
 };
 
 export { createSong };

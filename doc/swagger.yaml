@@ -160,6 +160,8 @@ definitions:
     properties:
       id:
         type: string
+      name:
+        type: string
       songs:
         type: array
         items:

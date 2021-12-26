@@ -9,7 +9,10 @@ export class List extends Model {
   @PrimaryKey
   @Default(DataTypes.UUIDV4)
   @Column(DataTypes.UUIDV4)
-  id!: string;
+  id: string;
+
+  @Column(DataTypes.STRING)
+  name: string;
 
   @ForeignKey(() => User)
   @Column

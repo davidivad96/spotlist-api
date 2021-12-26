@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
-import { Model, Table, Column, HasMany, PrimaryKey, Default } from 'sequelize-typescript';
+import { Model, Table, Column, HasMany, PrimaryKey, Default, BeforeCreate } from 'sequelize-typescript';
+import * as bcrypt from 'bcrypt';
 import { List } from './list.model';
 
 @Table
@@ -7,14 +8,20 @@ export class User extends Model {
   @PrimaryKey
   @Default(DataTypes.UUIDV4)
   @Column(DataTypes.UUIDV4)
-  id!: string;
+  id: string;
 
   @Column
-  name!: string;
+  name: string;
 
   @Column
-  password!: string;
+  password: string;
 
   @HasMany(() => List)
   lists: List[];
+
+  @BeforeCreate
+  static hashPassword(instance: User) {
+    const salt = bcrypt.genSaltSync(10);
+    instance.password = bcrypt.hashSync(instance.password, salt);
+  }
 }
