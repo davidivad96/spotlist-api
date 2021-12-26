@@ -1,26 +1,21 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import { Model, Table, Column, PrimaryKey, BelongsToMany, Default } from 'sequelize-typescript';
+import { List } from './list.model';
+import { SongList } from './song-list.model';
 
-const SongModelDefiner = (sequelize: Sequelize) => {
-  sequelize.define(
-    'Song',
-    {
-      id: {
-        type: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      artist: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      timestamps: false,
-    },
-  );
-};
+@Table
+export class Song extends Model {
+  @PrimaryKey
+  @Default(DataTypes.UUIDV4)
+  @Column(DataTypes.UUIDV4)
+  id!: string;
 
-export default SongModelDefiner;
+  @Column(DataTypes.STRING)
+  title!: string;
+
+  @Column(DataTypes.STRING)
+  artist!: string;
+
+  @BelongsToMany(() => List, () => SongList)
+  lists: List[];
+}

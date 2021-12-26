@@ -1,29 +1,16 @@
-import { Sequelize } from 'sequelize';
-import UserModelDefiner from './models/user.model';
-import ListModelDefiner from './models/list.model';
-import SongModelDefiner from './models/song.model';
+import { Sequelize } from 'sequelize-typescript';
 
-const sequelize = new Sequelize({
+import { User } from './models/user.model';
+import { List } from './models/list.model';
+import { Song } from './models/song.model';
+import { SongList } from './models/song-list.model';
+
+export const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: 'sqlite::memory:',
+  models: [User, List, Song, SongList],
+  repositoryMode: true,
+  define: {
+    timestamps: false,
+  },
 });
-
-const modelDefiners = [UserModelDefiner, ListModelDefiner, SongModelDefiner];
-
-for (const modelDefiner of modelDefiners) {
-  modelDefiner(sequelize);
-}
-
-(() => {
-  const { User, List, Song } = sequelize.models;
-
-  User.hasMany(List);
-  List.belongsTo(User);
-
-  List.belongsToMany(Song, { through: 'SongList' });
-  Song.belongsToMany(List, { through: 'SongList' });
-})();
-
-const db = { sequelize };
-
-export default db;

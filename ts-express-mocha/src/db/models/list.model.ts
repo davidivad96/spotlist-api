@@ -1,18 +1,23 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import { Model, Table, Column, BelongsTo, BelongsToMany, PrimaryKey, ForeignKey, Default } from 'sequelize-typescript';
+import { Song } from './song.model';
+import { User } from './user.model';
+import { SongList } from './song-list.model';
 
-const ListModelDefiner = (sequelize: Sequelize) => {
-  sequelize.define(
-    'List',
-    {
-      id: {
-        type: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-    },
-    {
-      timestamps: false,
-    },
-  );
-};
+@Table
+export class List extends Model {
+  @PrimaryKey
+  @Default(DataTypes.UUIDV4)
+  @Column(DataTypes.UUIDV4)
+  id!: string;
 
-export default ListModelDefiner;
+  @ForeignKey(() => User)
+  @Column
+  userId: string;
+
+  @BelongsTo(() => User)
+  user: User;
+
+  @BelongsToMany(() => Song, () => SongList)
+  songs: Song[];
+}

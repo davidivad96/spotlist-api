@@ -1,26 +1,20 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import { Model, Table, Column, HasMany, PrimaryKey, Default } from 'sequelize-typescript';
+import { List } from './list.model';
 
-const UserModelDefiner = (sequelize: Sequelize) => {
-  sequelize.define(
-    'User',
-    {
-      id: {
-        type: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      timestamps: false,
-    },
-  );
-};
+@Table
+export class User extends Model {
+  @PrimaryKey
+  @Default(DataTypes.UUIDV4)
+  @Column(DataTypes.UUIDV4)
+  id!: string;
 
-export default UserModelDefiner;
+  @Column
+  name!: string;
+
+  @Column
+  password!: string;
+
+  @HasMany(() => List)
+  lists: List[];
+}

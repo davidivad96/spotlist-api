@@ -27,7 +27,7 @@ paths:
                 items:
                   $ref: '#/definitions/Song'
       responses:
-        '200':
+        '201':
           description: Ok
           schema:
             $ref: '#/definitions/SongList'
@@ -113,7 +113,7 @@ paths:
           schema:
             $ref: '#/definitions/Song'
         responses:
-          '200':
+          '201':
             description: Ok
             schema:
               $ref: '#/definitions/Song'
