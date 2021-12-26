@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize-typescript';
-
 import { User } from './models/user.model';
 import { List } from './models/list.model';
 import { Song } from './models/song.model';

@@ -21,7 +21,6 @@
     "express": "^4.17.1",
     "express-validation": "^3.0.8",
     "http-status": "^1.5.0",
-    "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^7.0.0-alpha.2",
     "sequelize-typescript": "^2.1.1",

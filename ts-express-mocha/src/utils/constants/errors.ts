@@ -1,5 +1,5 @@
 export const errors = {
   validation: 'validation_error',
-  not_authenticated: 'not_authenticated',
+  unauthorized: 'unauthorized',
   server: 'internal_error',
 };

@@ -2,7 +2,10 @@ import { Joi } from 'express-validation';
 
 const listCreateValidation = {
   body: Joi.object({
-    name: Joi.string().required(),
+    list: Joi.object({
+      name: Joi.string().required(),
+      songs: Joi.array().items(Joi.object({ title: Joi.string().required(), artist: Joi.string().required() })),
+    }).required(),
   }),
 };
 
