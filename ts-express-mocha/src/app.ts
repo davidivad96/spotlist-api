@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import userRouter from './routes/user.router';
 import listRouter from './routes/list.router';
 import songRouter from './routes/song.router';
-import { errorHandler } from './middlewares';
+import { errorHandler, pageNotFoundHandler } from './middlewares';
 
 const app = express();
 
@@ -17,5 +17,6 @@ app.use(listRouter);
 app.use(songRouter);
 
 app.use(errorHandler);
+app.use(pageNotFoundHandler);
 
 export default app;
