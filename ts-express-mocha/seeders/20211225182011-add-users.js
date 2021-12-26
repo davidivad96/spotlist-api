@@ -1,7 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
-const USERS_DATA = require('../../data/users.json');
+const USERS_DATA = require('../data/users.json');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
