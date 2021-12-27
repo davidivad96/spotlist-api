@@ -1,30 +1,25 @@
 import { RequestHandler } from 'express';
-import { listRepository, songListRepository, songRepository, userRepository } from '../repositories';
+import ListService from '../services/list.service';
+import UserService from '../services/user.service';
 import { BadRequest, Unauthorized } from '../utils/errors';
 
 const getLists: RequestHandler = async (req, res): Promise<void> => {
   const { userId } = req.params;
-  const user = await userRepository.findByPk(userId);
+  const user = await UserService.findByPk(userId);
   if (!user || userId !== req.userId) {
     throw new Unauthorized('Invalid user id');
   }
-  const lists = await listRepository.findAll({
-    where: { userId: userId },
-    include: [{ model: songRepository, as: 'songs', through: { attributes: [] } }],
-  });
+  const lists = await ListService.findAllByUserId(userId);
   res.status(200).json({ data: { lists } });
 };
 
 const getList: RequestHandler = async (req, res): Promise<void> => {
   const { userId, listId } = req.params;
-  const user = await userRepository.findByPk(userId);
+  const user = await UserService.findByPk(userId);
   if (!user || userId !== req.userId) {
     throw new Unauthorized('Invalid user id');
   }
-  const list = await listRepository.findOne({
-    where: { id: listId, userId: userId },
-    include: [{ model: songRepository, as: 'songs', through: { attributes: [] } }],
-  });
+  const list = await ListService.findOne(listId, userId);
   if (!list) {
     throw new BadRequest('Invalid list id');
   }
@@ -36,18 +31,12 @@ const createList: RequestHandler = async (req, res): Promise<void> => {
   const {
     list: { name, songs },
   } = req.body;
-  const user = await userRepository.findByPk(userId);
+  const user = await UserService.findByPk(userId);
   if (!user || userId !== req.userId) {
     throw new Unauthorized('Invalid user id');
   }
-  let list = await listRepository.create({ name, userId: userId });
-  for (const song of songs) {
-    const songId = (await songRepository.create({ title: song.title, artist: song.artist })).id;
-    await songListRepository.create({ songId, listId: list.id });
-  }
-  list = await listRepository.findByPk(list.id, {
-    include: [{ model: songRepository, as: 'songs', through: { attributes: [] } }],
-  });
+  let list = await ListService.create(name, userId, songs);
+  list = await ListService.findByPk(list.id);
   res.status(201).json({ data: { list } });
 };
 

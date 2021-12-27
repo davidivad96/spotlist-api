@@ -1,5 +1,8 @@
 import { RequestHandler } from 'express';
-import { songRepository, listRepository, songListRepository, userRepository } from '../repositories';
+import ListService from '../services/list.service';
+import SongService from '../services/song.service';
+import SongListService from '../services/song-list.service';
+import UserService from '../services/user.service';
 import { BadRequest, Unauthorized } from '../utils/errors';
 
 const addSongToList: RequestHandler = async (req, res): Promise<void> => {
@@ -7,19 +10,16 @@ const addSongToList: RequestHandler = async (req, res): Promise<void> => {
   const {
     song: { title, artist },
   } = req.body;
-  const user = await userRepository.findByPk(userId);
+  const user = await UserService.findByPk(userId);
   if (!user || userId !== req.userId) {
     throw new Unauthorized('Invalid user id');
   }
-  const list = await listRepository.findOne({
-    where: { id: listId, userId: userId },
-    include: [{ model: songRepository, as: 'songs', through: { attributes: [] } }],
-  });
+  const list = await ListService.findOne(listId, userId);
   if (!list) {
     throw new BadRequest('Invalid list id');
   }
-  const song = await songRepository.create({ title, artist });
-  await songListRepository.create({ songId: song.id, listId });
+  const song = await SongService.create(title, artist);
+  await SongListService.create(song.id, listId);
   res.status(201).json({ data: { song } });
 };
 
