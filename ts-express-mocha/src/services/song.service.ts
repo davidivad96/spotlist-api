@@ -1,4 +1,4 @@
-import { Song } from '../db/models/song.model';
+import { Song } from '../db/models';
 import { songRepository } from '../repositories';
 
 class SongService {

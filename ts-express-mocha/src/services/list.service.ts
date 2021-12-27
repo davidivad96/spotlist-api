@@ -1,8 +1,6 @@
-import { List } from '../db/models/list.model';
-import { Song } from '../db/models/song.model';
+import { Song, List } from '../db/models';
 import { listRepository, songRepository } from '../repositories';
-import SongService from './song.service';
-import SongListService from './song-list.service';
+import { SongService, SongListService } from '.';
 
 class ListService {
   public static async findAllByUserId(userId: string): Promise<List[]> {

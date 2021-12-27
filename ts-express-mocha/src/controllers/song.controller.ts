@@ -1,8 +1,5 @@
 import { RequestHandler } from 'express';
-import ListService from '../services/list.service';
-import SongService from '../services/song.service';
-import SongListService from '../services/song-list.service';
-import UserService from '../services/user.service';
+import { SongService, ListService, SongListService, UserService } from '../services';
 import { BadRequest, Unauthorized } from '../utils/errors';
 
 const addSongToList: RequestHandler = async (req, res): Promise<void> => {

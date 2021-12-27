@@ -1,10 +1,9 @@
 import { DataTypes } from 'sequelize';
 import { Model, Table, Column, PrimaryKey, BelongsToMany, Default } from 'sequelize-typescript';
-import { List } from './list.model';
-import { SongList } from './song-list.model';
+import { List, SongList } from '.';
 
 @Table
-export class Song extends Model {
+class Song extends Model {
   @PrimaryKey
   @Default(DataTypes.UUIDV4)
   @Column(DataTypes.UUIDV4)
@@ -19,3 +18,5 @@ export class Song extends Model {
   @BelongsToMany(() => List, () => SongList)
   lists: List[];
 }
+
+export default Song;

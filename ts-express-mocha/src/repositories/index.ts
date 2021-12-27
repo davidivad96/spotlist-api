@@ -1,8 +1,5 @@
 import { sequelize } from '../db';
-import { List } from '../db/models/list.model';
-import { SongList } from '../db/models/song-list.model';
-import { Song } from '../db/models/song.model';
-import { User } from '../db/models/user.model';
+import { Song, List, SongList, User } from '../db/models';
 
 const listRepository = sequelize.getRepository(List);
 const userRepository = sequelize.getRepository(User);

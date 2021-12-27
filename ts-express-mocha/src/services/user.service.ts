@@ -1,4 +1,4 @@
-import { User } from '../db/models/user.model';
+import { User } from '../db/models';
 import { listRepository, userRepository } from '../repositories';
 
 class UserService {

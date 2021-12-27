@@ -1,4 +1,4 @@
-import { SongList } from '../db/models/song-list.model';
+import { SongList } from '../db/models';
 import { songListRepository } from '../repositories';
 
 class SongListService {

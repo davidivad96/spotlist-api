@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { tryCatchWrapper } from '../utils/tryCatchWrapper';
 import { Unauthorized } from '../utils/errors';
 import { validatePassword } from '../utils/functions';
-import UserService from '../services/user.service';
+import { UserService } from '../services';
 
 const isAuthorized: RequestHandler = async (req, _res, next) => {
   if (req.headers.authorization) {

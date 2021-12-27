@@ -1,10 +1,10 @@
 import { DataTypes } from 'sequelize';
 import { Model, Table, Column, HasMany, PrimaryKey, Default, BeforeCreate } from 'sequelize-typescript';
 import * as bcrypt from 'bcrypt';
-import { List } from './list.model';
+import { List } from '.';
 
 @Table
-export class User extends Model {
+class User extends Model {
   @PrimaryKey
   @Default(DataTypes.UUIDV4)
   @Column(DataTypes.UUIDV4)
@@ -25,3 +25,5 @@ export class User extends Model {
     instance.password = bcrypt.hashSync(instance.password, salt);
   }
 }
+
+export default User;

@@ -1,6 +1,5 @@
 import { RequestHandler } from 'express';
-import ListService from '../services/list.service';
-import UserService from '../services/user.service';
+import { ListService, UserService } from '../services';
 import { BadRequest, Unauthorized } from '../utils/errors';
 
 const getLists: RequestHandler = async (req, res): Promise<void> => {

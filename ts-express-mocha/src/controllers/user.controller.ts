@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import UserService from '../services/user.service';
+import { UserService } from '../services';
 import { BadRequest } from '../utils/errors';
 
 const getUsers: RequestHandler = async (req, res): Promise<void> => {
