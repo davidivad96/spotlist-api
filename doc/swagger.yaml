@@ -5,6 +5,63 @@ info:
 schemes:
   - https
 paths:
+  /users:
+    get:
+      summary: Gets all the users
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '400':
+          description: Invalid parameters
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Creates a new user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          description: User
+          required: true
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the user
+                required: true
+              password:
+                type: string
+                description: Password
+                required: true
+      responses:
+        '201':
+          description: Ok
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid parameters
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
   /users/:userId/lists:
     post:
       summary: Adds a list to a given user
@@ -22,8 +79,14 @@ paths:
           schema:
             type: object
             properties:
+              name:
+                type: string
+                description: Name of the list
+                required: true
               songs:
                 type: array
+                description: Songs of the list
+                required: true
                 items:
                   $ref: '#/definitions/Song'
       responses:
@@ -106,12 +169,21 @@ paths:
         security:
           - basicPassword: [ ]
         parameters:
-        - name: song
-          description: List of songs
+          name: song
+          description: Song
           required: true
           in: body
           schema:
-            $ref: '#/definitions/Song'
+            type: object
+            properties:
+              title:
+                type: string
+                description: Title of the song
+                required: true
+              artist:
+                type: string
+                description: Artist of the song
+                required: true
         responses:
           '201':
             description: Ok
