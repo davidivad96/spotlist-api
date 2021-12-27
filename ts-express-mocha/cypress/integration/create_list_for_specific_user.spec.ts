@@ -9,7 +9,7 @@ describe('Create list for specific user', () => {
 
   const createListPayload: CreateListPayload = {
     list: {
-      name: 'mylist1',
+      name: 'list1',
       songs: [
         {
           artist: 'artist1',

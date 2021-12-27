@@ -11,7 +11,7 @@ describe('Add songs to specific list', () => {
 
   const createListsPayload: CreateListPayload = {
     list: {
-      name: 'mylist1',
+      name: 'list1',
       songs: [
         {
           artist: 'artist1',
