@@ -1,32 +1,39 @@
-# Spotlist Challenge
+## How to run backend
 
-Spotlist is a new indie music company that aims to provide better relationships with small artists.
+### Using Docker Compose (recommended)
 
-Their product is _Spotlist_, a platform in which people can generate and share playlists for their favourite artists providing them with visibility.
+Make sure you have Docker installed and running. From the *ts-express-mocha* folder:
 
-## Current Status
+- Run `docker compose up`
+- The server should be running at `http://localhost:8000`
 
-The CEO of _Spotlist_ hired you to develop the initial version of his product. Its worth mentioning that she does not have any technical background.
+### Using Docker
 
-However, she has a clear vision on how the product should behave, so she provided a list of functional requirements.
+Make sure you have Docker installed and running. From the *ts-express-mocha* folder:
 
-### Requirements
-* Each user will have a **unique** id, and he will authenticate using a **non-empty name** and a **password**.
-* Each user will be able to save a list of songs. Each song will have an **artist** and **title**, and each list will be defined by a **unique** id and a name.
-* The system have to allow the following actions
-    * Create a new list with a given name (auto-generate the **unique** id)
-    * Get the users lists
-    * Get an individual list for the user
-    * Add songs to a given list (based on the generated id)
-    * All endpoints have to be secured with Basic Auth (using name & password) 
-* You should ensure that the password is strong enough
+- Build the image with `docker build -t spotlist-api .`
+- Run the image with `docker run -p 8000:8000 -v "${PWD}/src:/app/src" spotlist-api`
+- The server should be running at `http://localhost:8000`
 
-You can find the swagger documentation for the expected API on the [doc](./doc/swagger.yaml) folder.
-## What are we looking for?
+### Directly in your machine
 
-* **A well-designed solution and architecture** Avoid duplication, extract re-usable code
-where makes sense. We want to see that you can create an easy-to-maintain codebase.
-* **Storage** We do not need a full fledged database rollout, its ok to save your data on memory for now. _However_ we are looking for an architecture that allows us to add a database as easy as possible. For a start, you can find a users database in json format on the _doc_ folder.
-* **Testing** Try to create tests covering the main functionalities of your code. Feel free to create both unit tests and functional tests.
-* **Documentation** The CEO has a non-tech background so try to explain your decisions, 
-as well as any other technical requirement (how to run the API, external dependencies, etc ...)
+From the *ts-express-mocha* folder:
+
+- Install dependencies with `npm install`
+- Run the server with `npm run dev`
+- The server should be running at `http://localhost:8000`
+
+## Note about the database initialization
+
+There is a **sqlite::memory:** file which already has all the needed tables created by you. Don't worry if you delete it, when running the server all the tables will be automatically created and stored again in that file.
+
+But what about the data? If you run the backend directly in your machine, you will have to manually seed the database. It's easy, just run the command `npm run db:seed` from the *ts-express-mocha* folder. If this command throws an error, it can be due to one of these reasons:
+
+- The tables are not created: this can be solved by just running the backend via `npm run dev` command. After that, try again to run the seed command and it should work.
+- The seed is already present in the database: in this case the data has been successfully inserted into the database so there's no need to run the command again.
+
+Finally, note that this seed command must only be used if you are running the server in your local machine, not using Docker. If you are using Docker or Docker Compose to run the app then all this is done for you so that you don't have to make any extra step. That's why we recommend you to use the Docker way.
+
+## Run tests
+
+To run the tests you only have to execute the command `npm run integration` from the *ts-express-mocha* folder. Please note that the database should be first contain all the tables and data. Also that the backend must be running when running the tests, otherwise they will not work.
