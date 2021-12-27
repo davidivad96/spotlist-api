@@ -1,10 +1,10 @@
 import users from '../../data/users.json';
-import { User, CreateListPayload, AddSongPayload } from '../interfaces';
+import { DBUser, CreateListPayload, AddSongPayload } from '../interfaces';
 
 const apiUrl = `${Cypress.env('apiUrl')}`;
 
 describe('Add songs to specific list', () => {
-  const user: User = users[1];
+  const user: DBUser = users[1];
   const addListBasePath = `/users/${user['id']}/lists`;
   let listId: string;
   let addSongBasePath: string;
@@ -85,7 +85,7 @@ describe('Add songs to specific list', () => {
   });
 
   it('should throw 401 if user does not have permissions to the list', () => {
-    const nonOwnerUser: User = users[2];
+    const nonOwnerUser: DBUser = users[2];
 
     cy.request({
       failOnStatusCode: false,
@@ -102,7 +102,7 @@ describe('Add songs to specific list', () => {
   });
 
   it('should throw 401 if user does not exist', () => {
-    const user: User = users[0];
+    const user: DBUser = users[0];
 
     cy.request({
       failOnStatusCode: false,

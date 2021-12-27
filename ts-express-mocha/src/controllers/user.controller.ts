@@ -8,7 +8,9 @@ const getUsers: RequestHandler = async (req, res): Promise<void> => {
 };
 
 const createUser: RequestHandler = async (req, res): Promise<void> => {
-  const { name, password } = req.body;
+  const {
+    user: { name, password },
+  } = req.body;
   let user = await UserService.findOne(name);
   if (user) {
     throw new BadRequest('User already exists');

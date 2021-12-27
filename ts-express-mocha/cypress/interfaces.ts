@@ -1,15 +1,18 @@
-export interface User {
-  id: string;
-  name: string;
-  password: string;
-}
-
 export interface CreateListPayload {
   list: List;
 }
 
+export interface CreateUserPayload {
+  user: User;
+}
+
 export interface AddSongPayload {
   song: Song;
+}
+
+export interface Song {
+  title: string;
+  artist: string;
 }
 
 export interface List {
@@ -17,7 +20,11 @@ export interface List {
   songs: Song[];
 }
 
-export interface Song {
-  title: string;
-  artist: string;
+export interface User {
+  name: string;
+  password: string;
+}
+
+export interface DBUser extends User {
+  id: string;
 }

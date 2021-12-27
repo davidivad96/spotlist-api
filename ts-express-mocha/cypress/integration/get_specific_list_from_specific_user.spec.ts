@@ -1,10 +1,10 @@
 import users from '../../data/users.json';
-import { User, CreateListPayload } from '../interfaces';
+import { DBUser, CreateListPayload } from '../interfaces';
 
 const apiUrl = `${Cypress.env('apiUrl')}`;
 
 describe('Get specific list from specific user', () => {
-  const user: User = users[1];
+  const user: DBUser = users[1];
   const addListBasePath = `/users/${user['id']}/lists`;
   let getListByIdBasePath: string;
   let listId: string;
@@ -75,7 +75,7 @@ describe('Get specific list from specific user', () => {
   });
 
   it('should throw 401 if user is not the owner', () => {
-    const user: User = users[2];
+    const user: DBUser = users[2];
 
     cy.request({
       failOnStatusCode: false,

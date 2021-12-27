@@ -1,10 +1,10 @@
 import users from '../../data/users.json';
-import { User, CreateListPayload } from '../interfaces';
+import { DBUser, CreateListPayload } from '../interfaces';
 
 const apiUrl = `${Cypress.env('apiUrl')}`;
 
 describe('Create list for specific user', () => {
-  const user: User = users[1];
+  const user: DBUser = users[1];
   const basePath = `/users/${user['id']}/lists`;
 
   const createListPayload: CreateListPayload = {

@@ -1,11 +1,11 @@
 import users from '../../data/users.json';
-import { User } from '../interfaces';
+import { DBUser } from '../interfaces';
 
 const apiUrl = `${Cypress.env('apiUrl')}`;
 
 describe('Get lists from specific user', () => {
-  const userOwner: User = users[1];
-  const userNotOwner: User = users[2];
+  const userOwner: DBUser = users[1];
+  const userNotOwner: DBUser = users[2];
   const basePath = `/users/${userOwner['id']}/lists`;
 
   it('should return a list of songs if userOwner is the owner', () => {
