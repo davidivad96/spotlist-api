@@ -36,4 +36,4 @@ Finally, note that this seed command must only be used if you are running the se
 
 ## Run tests
 
-To run the tests you only have to execute the command `npm run integration` from the *ts-express-mocha* folder. Please note that the database should be first contain all the tables and data. Also that the backend must be running when running the tests, otherwise they will not work.
+To run the tests you only have to execute the command `npm run integration` from the *ts-express-mocha* folder. Please note that the database should be first populated with all the tables and initial data. Also that the backend must be running when running the tests, otherwise they will not work.

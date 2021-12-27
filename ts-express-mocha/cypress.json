@@ -5,6 +5,7 @@
   "testFiles": [
     "hello_world.spec.ts",
     "get_all_users.spec.ts",
+    "create_user.spec.ts",
     "get_lists_from_specific_user.spec.ts",
     "get_specific_list_from_specific_user.spec.ts",
     "create_list_for_specific_user.spec.ts",

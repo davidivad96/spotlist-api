@@ -15,7 +15,7 @@ const userCreateValidation = {
     user: Joi.object({
       name: Joi.string().required(),
       password: Joi.string().required().regex(passwordRegex),
-    }),
+    }).required(),
   }),
 };
 
